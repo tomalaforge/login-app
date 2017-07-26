@@ -13,6 +13,15 @@
 
   <!-- cordova.js required for cordova apps -->
   <script src="cordova.js"></script>
+  <script src="keycloak.js"></script>
+  <script>
+    var keycloak = Keycloak("keycloak.json");
+    keycloak.init().success(function(authenticated) {
+      alert(authenticated ? 'authenticated' : 'not authenticated');
+    }).error(function() {
+      alert('failed to initialize');
+    });
+  </script>
 
   <!-- un-comment this code to enable service worker
   <script>
