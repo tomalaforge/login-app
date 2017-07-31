@@ -1,7 +1,11 @@
 import {Component} from '@angular/core';
 import {NavController} from 'ionic-angular';
 import {ContentPage} from '../content/content';
-import * as Keycloak from 'keycloak-js';
+
+
+const Keycloak = require('keycloak-js');
+
+
 
 @Component({
   selector: 'page-home',
