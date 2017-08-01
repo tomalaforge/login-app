@@ -7,6 +7,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import {ContentPage} from '../pages/content/content';
+import { KeycloakProvider } from '../providers/keycloak/keycloak';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +30,9 @@ import {ContentPage} from '../pages/content/content';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    KeycloakProvider,
+    InAppBrowser
   ]
 })
 export class AppModule {}

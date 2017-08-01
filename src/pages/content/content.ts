@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {KeycloakProvider} from '../../providers/keycloak/keycloak';
+import {KeycloakProfile} from 'keycloak-js';
 
 /**
  * Generated class for the ContentPage page.
@@ -12,13 +14,21 @@ import { NavController, NavParams } from 'ionic-angular';
   selector: 'page-content',
   templateUrl: 'content.html',
 })
-export class ContentPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+export class ContentPage implements OnInit{
+  ngOnInit(): void {
+    this.kc.loadProfile()
+      .success((profile)=>this.auth=profile)
+      .error(()=>this.auth=null);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ContentPage');
+  private auth: KeycloakProfile;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private kc:KeycloakProvider) {
+  }
+
+  ionViewCanEnter() {
+    console.log("je suis la");
+    return this.kc.authenticated();
   }
 
 }

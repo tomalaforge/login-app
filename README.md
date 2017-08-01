@@ -1,26 +1,23 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+How to set up keycloak with this project
 
-## How to use this template
+## How to set up Keycloak server with DOCKER
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
+####Start a postgres container
+```
+$ docker run --name postgres -e POSTGRES_DATABASE=keycloak -e POSTGRES_USER=keycloak -e POSTGRES_PASSWORD=<PASSWORD> -e POSTGRES_ROOT_PASSWORD=<PASSWORD> -d postgres
+```
+Change 'PASSWORD' with any passwork you want
 
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
+####Start a keycloak container
+```
+$ docker run -p 8080:8080 --name keycloak --link postgres:postgres -e POSTGRES_DATABASE=keycloak -e POSTGRES_USER=keycloak -e POSTGRES_PASSWORD=<PASSWORD> -d jboss/keycloak-ha-postgres
+```
+Your docker is now up and running
 
-### With the Ionic CLI:
-
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
-
-```bash
-$ sudo npm install -g ionic cordova
-$ ionic start myBlank blank
+#####Create your admin user
+```
+$ docker exec <CONTAINER> keycloak/bin/add-user-keycloak.sh -u <USERNAME> -p <PASSWORD>
+$ docker restart <CONTAINER>
 ```
 
-Then, to run it, cd into `myBlank` and run:
-
-```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
-```
-
-Substitute ios for android if not on a Mac.
-
+You are now able to connect to your keycloak server at **http://localhost:8080/auth** and tape in your _login_ and _password_ you have just created.

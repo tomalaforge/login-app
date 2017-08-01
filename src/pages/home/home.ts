@@ -1,10 +1,7 @@
 import {Component} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {AlertController, NavController} from 'ionic-angular';
 import {ContentPage} from '../content/content';
-
-
-const Keycloak = require('keycloak-js');
-
+import {KeycloakProvider} from '../../providers/keycloak/keycloak';
 
 
 @Component({
@@ -12,34 +9,30 @@ const Keycloak = require('keycloak-js');
   templateUrl: 'home.html'
 })
 export class HomePage {
+  // private auth: any = {};
 
-  private keycloak;
-  private auth: any = {};
 
-  constructor(public navCtrl: NavController) {
-    this.keycloak = Keycloak("assets/keycloak.json");
-    this.keycloak.init()
-      .success(() => {
-        alert(this.keycloak.authenticated?"authenticated":"not authenticated");
-        // this.auth.authenticated = true;
-        // this.auth.authz = this.keycloak;
-        // this.auth.logoutUrl = `${this.keycloak.authServerUrl}/realms/${this.keycloak.realm}/protocol/openid-connect/logout?redirect_uri=/`;
-      })
-      .error(()=>alert("error"));
+
+  constructor(public navCtrl: NavController, private kc: KeycloakProvider,public alertCtrl: AlertController) {
+  }
+
+  authenticated(){
+    return this.kc.authenticated();
   }
 
   login() {
-    this.keycloak.login();
+    this.kc.login();
   }
 
-  logout(){
-    this.auth.loggedIn = false;
-    this.auth.authz = null;
-    window.location.href = this.auth.logoutUrl;
+  logout() {
+    this.kc.logout();
   }
 
   pushPage() {
-    this.navCtrl.push(ContentPage);
+    this.navCtrl.push(ContentPage).then((answer) => {
+      if(!answer)
+        this.kc.login();
+    });
   }
 
 

@@ -11,14 +11,14 @@
     <button ion-button (click)="pushPage()">
       Go to OtherPage
     </button>
-    <button *ngIf="!auth.authenticated" ion-button (click)="login()">
+    <button *ngIf="!authenticated()" ion-button (click)="login()">
       Login
     </button>
-    <button *ngIf="auth.authenticated" ion-button (click)="logout()">
-      Login
+    <button *ngIf="authenticated()" ion-button (click)="logout()">
+      Logout
     </button>
-    <div *ngIf="auth.authenticated">
-      {{auth.authz.token}}
+    <div *ngIf="authenticated()">
+      <!--{{auth.authz.token}}-->
     </div>
   </ion-content>
 </ion-content>
