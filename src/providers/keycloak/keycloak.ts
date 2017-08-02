@@ -17,6 +17,7 @@ export class KeycloakProvider {
   static keycloakAuth: KeycloakInstance = Keycloak("assets/keycloak.json");
 
   static init(options?: any): Promise<any> {
+    console.log(JSON.stringify(KeycloakProvider.keycloakAuth));
     return new Promise((resolve, reject) => {
       KeycloakProvider.keycloakAuth.init(options)
         .success(() => {
@@ -29,6 +30,7 @@ export class KeycloakProvider {
   }
 
   authenticated(): boolean {
+    console.log(JSON.stringify(KeycloakProvider.keycloakAuth));
     return KeycloakProvider.keycloakAuth.authenticated;
   }
 
@@ -42,11 +44,12 @@ export class KeycloakProvider {
   }
 
   account() {
-    KeycloakProvider.keycloakAuth.accountManagement();
+    // KeycloakProvider.keycloakAuth.accountManagement();
   }
 
   loadProfile() {
-    return KeycloakProvider.keycloakAuth.loadUserProfile();
+    // return KeycloakProvider.keycloakAuth.loadUserProfile();
+    return null;
   }
 
 

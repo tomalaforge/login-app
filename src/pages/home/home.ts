@@ -30,6 +30,9 @@ export class HomePage {
 
   pushPage() {
     this.navCtrl.push(ContentPage).then((answer) => {
+      console.log(answer);
+      this.kc.getToken().then((obj)=>console.log(obj))
+        .catch(err=>console.log(err));
       if(!answer)
         this.kc.login();
     });

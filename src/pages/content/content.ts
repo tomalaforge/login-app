@@ -16,9 +16,9 @@ import {KeycloakProfile} from 'keycloak-js';
 })
 export class ContentPage implements OnInit{
   ngOnInit(): void {
-    this.kc.loadProfile()
-      .success((profile)=>this.auth=profile)
-      .error(()=>this.auth=null);
+    // this.kc.loadProfile()
+    //   .success((profile)=>this.auth=profile)
+    //   .error(()=>this.auth=null);
   }
 
   private auth: KeycloakProfile;

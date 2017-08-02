@@ -5,7 +5,7 @@ import {KeycloakProvider} from '../providers/keycloak/keycloak';
 
 // platformBrowserDynamic().bootstrapModule(AppModule);
 
-KeycloakProvider.init({onLoad: 'login-required'})
+KeycloakProvider.init({ onLoad: "check-sso",checkLoginIframe: false })
   .then(() => {
     platformBrowserDynamic().bootstrapModule(AppModule);
   })
