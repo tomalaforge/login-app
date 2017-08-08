@@ -36,7 +36,11 @@ export class KeycloakProvider {
 
 
   login() {
-    KeycloakProvider.keycloakAuth.login();
+    KeycloakProvider.keycloakAuth.login()
+      .success(()=>console.log("login sucess"))
+      .error((error: any) => {
+        console.log("login error" + error)
+      });
   }
 
   logout() {

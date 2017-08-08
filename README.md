@@ -21,3 +21,9 @@ $ docker restart <CONTAINER>
 ```
 
 You are now able to connect to your keycloak server at **http://localhost:8080/auth** and tape in your _login_ and _password_ you have just created.
+
+#How to run the application
+
+```
+$ ionic cordova run android
+```
